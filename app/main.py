@@ -8,6 +8,7 @@ import time
 import os
 import logging
 from dotenv import load_dotenv
+from app.middleware.error_handler import sql_error_handler
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -37,6 +38,7 @@ async def setup_db():
     logger.info("Database setup complete!")
 
 app = FastAPI(title="SecureInfo Concierge", description="Financial assistant application with LLM integration")
+app.middleware("http")(sql_error_handler)
 
 @app.on_event("startup")
 async def startup_event():

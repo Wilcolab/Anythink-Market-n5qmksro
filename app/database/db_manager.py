@@ -3,6 +3,7 @@ import os
 import json
 import datetime
 from typing import List, Dict, Optional, Any, Union
+from app.utils.validators import InputValidator
 
 DATABASE_PATH = os.environ.get("DATABASE_PATH", "data/financial_data.db")
 
@@ -156,6 +157,8 @@ async def populate_sample_data():
         await db.commit()
 
 async def get_client_data(query_tag: str) -> List[Dict]:
+    if not InputValidator.validate_query_tag(query_tag):
+        raise ValueError("Invalid query tag format")
     """Get client data based on query tag
     
     Args:
@@ -174,6 +177,8 @@ async def get_client_data(query_tag: str) -> List[Dict]:
             return [dict(row) for row in rows]
 
 async def add_client_data(query_tag: str, info: str) -> int:
+    if not InputValidator.validate_query_tag(query_tag):
+        raise ValueError("Invalid query tag format")
     """Add new client data
     
     Args:
@@ -192,6 +197,8 @@ async def add_client_data(query_tag: str, info: str) -> int:
         return cursor.lastrowid
 
 async def get_account_balance(username: str, account_type: Optional[str] = None) -> List[Dict]:
+    if not InputValidator.validate_query_tag(query_tag):
+        raise ValueError("Invalid query tag format")
     """Get account balance information for a user
     
     Args:
