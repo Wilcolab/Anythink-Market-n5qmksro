@@ -22,19 +22,28 @@ wheels/
 
 # Virtual Environment
 venv/
-env/
 ENV/
+env/
 
-# IDE files
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 
-# OS specific files
-.DS_Store
-Thumbs.db
-
-# Local configuration
+# Environment variables
 .env
-.env.local 
+.env.*
+
+# Logs
+*.log
+
+# Local development
+.DS_Store
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Docker
+.docker/
+docker-compose.override.yml 
