@@ -1,50 +1,101 @@
-# SecureInfo Concierge
+# Image Filter App
 
-SecureInfo Concierge is an educational platform simulating a sophisticated financial assistant application. It integrates LLM capabilities with database retrievals, designed to teach secure data handling and interactions.
+A modern web application that allows you to upload images and apply various filters to them, all without saving anything to disk.
 
 ## Features
 
-- FastAPI backend with RESTful services
-- Azure OpenAI integration for intelligent responses
-- SQLite database for storing financial data
-- JWT-based authentication for secure endpoints
-- Minimalist web interface for user interactions
-- Dockerized environment for easy deployment
+- Easy image upload with drag-and-drop support
+- 12 different image filters including:
+  - Grayscale
+  - Blur
+  - Emboss
+  - Sharpen
+  - Sepia tone
+  - And more!
+- Real-time side-by-side preview of filtered images
+- Download functionality for processed images
+- Modern responsive UI
+- Zero disk storage (all operations happen in memory)
 
-## Quick start
+## Key Technical Aspects
 
-The application runs in a Docker container:
+- **Memory-Only Operation**: No images are saved to disk at any point
+- **Real-Time Filtering**: All filters are applied instantly with side-by-side preview
+- **Base64 Encoding**: Images are stored and transferred as base64-encoded strings
+- **Optimized Image Processing**: Large images are automatically resized for better performance
 
-1. Start the application with Docker Compose:
+## Requirements
 
-   ```
-   docker compose up
-   ```
+- Python 3.7 or higher
 
-2. Access the application in your web browser on port 8000
+## Installation
 
-3. If you want to login, use the following default credentials:
-   - Username: johndoe
-   - Password: secret
+1. Clone the repository:
 
-## Project Structure
+```bash
+git clone https://github.com/your-username/image-filter-app.git
+cd image-filter-app
+```
 
-- `app/`: Main application directory
-  - `api/`: API routes and endpoints
-  - `auth/`: Authentication related code
-  - `database/`: Database connection and queries
-  - `models/`: LLM service implementation
-  - `static/`: Static assets (CSS, JavaScript)
-  - `templates/`: HTML templates
-- `data/`: Directory for storing the SQLite database
-- `Dockerfile`: Instructions for building the Docker image
-- `docker-compose.yml`: Docker Compose configuration
-- `requirements.txt`: Python dependencies
+2. Install the required dependencies:
 
-## Main Components
+```bash
+pip install -r requirements.txt
+```
 
-- **API Endpoint**: The `app/api/secure-query` endpoint processes all financial queries and returns AI-generated responses
-- **LLM Service**: The `app/models/llm_service.py` manages OpenAI interactions and query interpretation
-- **Dashboard**: The main interface at `app/templates/dashboard.html` for submitting queries and viewing responses
-- **Login Page**: The authentication interface at `app/templates/index.html` for user access management
+## Usage
 
+1. Start the application:
+
+```bash
+python main.py
+```
+
+2. Open your web browser and go to: http://localhost:8000
+3. Upload an image by clicking the "Select Image" button or by dragging and dropping
+4. Click on any filter to instantly see the result
+5. Download the filtered image if desired
+
+## Architecture
+
+- **Frontend**: Modern HTML/CSS/JS with responsive design
+- **Backend**: FastAPI with Jinja2 templating
+- **Image Processing**: PIL/Pillow library for applying filters
+- **Data Flow**:
+  1. Images are uploaded and stored in memory (never on disk)
+  2. Filters are applied to in-memory images
+  3. Filtered images are sent to the browser as base64-encoded data
+  4. Downloads are generated on-demand directly from memory
+
+## Customization
+
+You can easily add more filters by:
+
+1. Adding a new entry to the `FILTERS` dictionary in `main.py`
+2. Implementing the filter logic in the `api_apply_filter` function
+
+Example for adding a new "Sepia" filter:
+
+```python
+# Add to FILTERS dictionary
+"sepia": "Sepia tone effect"
+
+# Add to filter logic
+elif selected_filter == "sepia":
+    # Your implementation here
+```
+
+## Technologies Used
+
+- **Backend**: FastAPI (Python)
+- **Frontend**: HTML, CSS, JavaScript
+- **Image Processing**: Pillow (PIL)
+- **Templating**: Jinja2
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
