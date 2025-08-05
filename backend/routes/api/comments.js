@@ -1,3 +1,5 @@
+// Description: API routes for managing comments
+
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const Comment = mongoose.model("Comment");
